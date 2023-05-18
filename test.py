@@ -51,6 +51,9 @@ plt.close()
 print("Hierarchical Risk Parity Weights:", hrp_weights)
 
 # Create the Black-Litterman model
+
+# Change absolute views to match your own views
+
 bl = BlackLittermanModel(S, absolute_views= {"AAPL": 0.10})
 bl_weights = bl.bl_weights()
 bl_weights_df = pd.DataFrame(list(bl_weights.items()),columns = ['Ticker','Weight']) 
@@ -93,41 +96,108 @@ print("Critical Line Algorithm Weights:", cla_weights)
 
 
 # Function to convert CSV to HTML table
-def csv_to_html(file_path):
-    df = pd.read_csv(file_path)
-    return df.to_html(index=False)
+def img_to_html(img_path, class_name=''):
+    return f'<img src="{img_path}" class="{class_name}">'
 
-# Function to convert image to HTML img
-def img_to_html(file_path):
-    return f'<img src="{file_path}" alt="Image" width="500" height="600">'
+def csv_to_html(csv_path, class_name=''):
+    df = pd.read_csv(csv_path)
+    return df.to_html(classes=class_name)
 
+
+    # Additional part to plot covariance matrix, dendrogram, and weights
+plotting.plot_covariance(S, show_tickers=True)
+plt.savefig('plots/covariance_matrix.png')
+plt.close()
+
+# Plot dendrogram for HRP model
+plotting.plot_dendrogram(hrp)
+plt.savefig('plots/hrp_dendrogram.png')
+plt.close()
+
+# Plot weights for each model
+plotting.plot_weights(weights)
+plt.savefig('plots/mvo_weights_plot.png')
+plt.close()
+
+plotting.plot_weights(hrp_weights)
+plt.savefig('plots/hrp_weights_plot.png')
+plt.close()
+
+plotting.plot_weights(bl_weights)
+plt.savefig('plots/bl_weights_plot.png')
+plt.close()
+
+plotting.plot_weights(cla_weights)
+plt.savefig('plots/cla_weights_plot.png')
+plt.close()
 
 # HTML content
-html_content = ""
 
-# Add Mean Variance Optimization results
-html_content += "<h1>Mean Variance Optimization</h1>"
-html_content += "<p>Mean Variance Optimization is an approach developed by Harry Markowitz, under which the objective is to minimize the portfolio variance and a given level of expected return. It's based on the idea that an investor should take on no more risk than that which is necessary to achieve their desired level of return. In the pie chart, each slice represents the proportion of the total funds that should be invested in a given stock to achieve the highest Sharpe ratio, i.e., the best risk-adjusted return.</p>"
-html_content += img_to_html('plots/mvo_weights.png')
-html_content += csv_to_html('mvo_weights.csv')
+# HTML content
+html_content = """
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
 
-# Add Hierarchical Risk Parity results
-html_content += "<h1>Hierarchical Risk Parity</h1>"
-html_content += "<p>Hierarchical Risk Parity (HRP) is a modern portfolio theory proposed by Marcos Lopez de Prado, which uses machine learning to construct portfolios. HRP does not require any parameter estimation, making it particularly suited to large datasets where parameter estimation is noisy. The pie chart displays the proportion of the total funds that should be invested in each stock according to the HRP model.</p>"
-html_content += img_to_html('plots/hrp_weights.png')
-html_content += csv_to_html('hrp_weights.csv')
+<div class="section">
+    <h1 class="section-title">Mean Variance Optimization</h1>
+    <p class="section-desc">Mean Variance Optimization is an approach developed by Harry Markowitz...</p>
+    """ + img_to_html('plots/mvo_weights.png', 'img-plot') + csv_to_html('mvo_weights.csv', 'table-data') + """
+</div>
 
-# Add Black-Litterman results
-html_content += "<h1>Black-Litterman</h1>"
-html_content += "<p>The Black-Litterman model is a mathematical model for portfolio allocation developed by Fischer Black and Robert Litterman. This model allows investors to combine their unique views regarding the performance of various assets with the market equilibrium in a manner that results in intuitive, diversified portfolios. The pie chart presents the proportion of the total funds that should be invested in each stock according to the Black-Litterman model.</p>"
-html_content += img_to_html('plots/bl_weights.png')
-html_content += csv_to_html('bl_weights.csv')
+<div class="section">
+    <h1 class="section-title">Hierarchical Risk Parity</h1>
+    <p class="section-desc">Hierarchical Risk Parity (HRP) is a modern portfolio theory...</p>
+    """ + img_to_html('plots/hrp_weights.png', 'img-plot') + csv_to_html('hrp_weights.csv', 'table-data') + """
+</div>
 
-# Add Critical Line Algorithm results
-html_content += "<h1>Critical Line Algorithm</h1>"
-html_content += "<p>The Critical Line Algorithm (CLA) is a method used in portfolio optimization, specifically in finding the optimal portfolio that lies along the efficient frontier. CLA is particularly useful when dealing with a large number of assets and constraints. The pie chart shows the proportion of the total funds that should be invested in each stock according to the CLA model.</p>"
-html_content += img_to_html('plots/cla_weights.png')
-html_content += csv_to_html('cla_weights.csv')
+<div class="section">
+    <h1 class="section-title">Black-Litterman</h1>
+    <p class="section-desc">The Black-Litterman model is a mathematical model for portfolio allocation...</p>
+    """ + img_to_html('plots/bl_weights.png', 'img-plot') + csv_to_html('bl_weights.csv', 'table-data') + """
+</div>
+
+<div class="section">
+    <h1 class="section-title">Critical Line Algorithm</h1>
+    <p class="section-desc">The Critical Line Algorithm (CLA) is a method used in portfolio optimization...</p>
+    """ + img_to_html('plots/cla_weights.png', 'img-plot') + csv_to_html('cla_weights.csv', 'table-data') + """
+</div>
+
+<div class="section">
+    <h1 class="section-title">Covariance Matrix</h1>
+    <p class="section-desc">The covariance matrix is a matrix that contains the variances and covariances...</p>
+    """ + img_to_html('plots/covariance_matrix.png', 'img-plot') + """
+</div>
+
+<div class="section">
+    <h1 class="section-title">HRP Dendrogram</h1>
+    <p class="section-desc">The dendrogram is a tree diagram frequently used to illustrate the arrangement of the clusters...</p>
+    """ + img_to_html('plots/hrp_dendrogram.png', 'img-plot') + """
+</div>
+
+<div class="section">
+    <h1 class="section-title">Model Weights Plots</h1>
+    <p class="section-desc">The plots below illustrate the weights assigned to each asset by the respective models.</p>
+
+    <h2 class="subsection-title">Mean Variance Optimization Weights Plot</h2>
+    """ + img_to_html('plots/mvo_weights_plot.png', 'img-plot') + """
+
+    <h2 class="subsection-title">Hierarchical Risk Parity Weights Plot</h2>
+    """ + img_to_html('plots/hrp_weights_plot.png', 'img-plot') + """
+
+    <h2 class="subsection-title">Black-Litterman Weights Plot</h2>
+    """ + img_to_html('plots/bl_weights_plot.png', 'img-plot') + """
+
+    <h2 class="subsection-title">Critical Line Algorithm Weights Plot</h2>
+    """ + img_to_html('plots/cla_weights_plot.png', 'img-plot') + """
+</div>
+
+</body>
+</html>
+"""
 
 # Write to HTML file
 with open('results.html', 'w') as f:
