@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.section {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.section-desc {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.subsection-title {
+    margin-top: 20px;
+    color: #333;
+}
+
+.img-plot {
+    max-width: 100%;
+    height: auto;
+}
+
+.table-data {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+.table-data th, .table-data td {
+    padding: 5px;
+    border: 1px solid #ddd;
+}

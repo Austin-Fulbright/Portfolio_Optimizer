@@ -1,357 +1,503 @@
-<h1>Mean Variance Optimization</h1><p>Mean Variance Optimization is an approach developed by Harry Markowitz, under which the objective is to minimize the portfolio variance and a given level of expected return. It's based on the idea that an investor should take on no more risk than that which is necessary to achieve their desired level of return. In the pie chart, each slice represents the proportion of the total funds that should be invested in a given stock to achieve the highest Sharpe ratio, i.e., the best risk-adjusted return.</p><img src="plots/mvo_weights.png" alt="Image" width="500" height="600"><table border="1" class="dataframe">
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<div class="section">
+    <h1 class="section-title">Mean Variance Optimization</h1>
+    <p class="section-desc">Mean Variance Optimization is an approach developed by Harry Markowitz...</p>
+    <img src="plots/mvo_weights.png" class="img-plot"><table border="1" class="dataframe table-data">
   <thead>
     <tr style="text-align: right;">
+      <th></th>
       <th>Ticker</th>
       <th>Weight</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <th>0</th>
       <td>GOOG</td>
       <td>0.038354</td>
     </tr>
     <tr>
+      <th>1</th>
       <td>AAPL</td>
       <td>0.068899</td>
     </tr>
     <tr>
+      <th>2</th>
       <td>FB</td>
       <td>0.206031</td>
     </tr>
     <tr>
+      <th>3</th>
       <td>BABA</td>
       <td>0.073146</td>
     </tr>
     <tr>
+      <th>4</th>
       <td>AMZN</td>
       <td>0.040329</td>
     </tr>
     <tr>
+      <th>5</th>
       <td>GE</td>
       <td>0.000000</td>
     </tr>
     <tr>
+      <th>6</th>
       <td>AMD</td>
       <td>0.000000</td>
     </tr>
     <tr>
+      <th>7</th>
       <td>WMT</td>
       <td>0.000000</td>
     </tr>
     <tr>
+      <th>8</th>
       <td>BAC</td>
       <td>0.000000</td>
     </tr>
     <tr>
+      <th>9</th>
       <td>GM</td>
       <td>0.000000</td>
     </tr>
     <tr>
+      <th>10</th>
       <td>T</td>
       <td>0.000000</td>
     </tr>
     <tr>
+      <th>11</th>
       <td>UAA</td>
       <td>0.000000</td>
     </tr>
     <tr>
+      <th>12</th>
       <td>SHLD</td>
       <td>0.000000</td>
     </tr>
     <tr>
+      <th>13</th>
       <td>XOM</td>
       <td>0.000000</td>
     </tr>
     <tr>
+      <th>14</th>
       <td>RRC</td>
       <td>0.000000</td>
     </tr>
     <tr>
+      <th>15</th>
       <td>BBY</td>
       <td>0.013235</td>
     </tr>
     <tr>
+      <th>16</th>
       <td>MA</td>
       <td>0.353487</td>
     </tr>
     <tr>
+      <th>17</th>
       <td>PFE</td>
       <td>0.195702</td>
     </tr>
     <tr>
+      <th>18</th>
       <td>JPM</td>
       <td>0.000000</td>
     </tr>
     <tr>
+      <th>19</th>
       <td>SBUX</td>
       <td>0.010816</td>
     </tr>
   </tbody>
-</table><h1>Hierarchical Risk Parity</h1><p>Hierarchical Risk Parity (HRP) is a modern portfolio theory proposed by Marcos Lopez de Prado, which uses machine learning to construct portfolios. HRP does not require any parameter estimation, making it particularly suited to large datasets where parameter estimation is noisy. The pie chart displays the proportion of the total funds that should be invested in each stock according to the HRP model.</p><img src="plots/hrp_weights.png" alt="Image" width="500" height="600"><table border="1" class="dataframe">
+</table>
+</div>
+
+<div class="section">
+    <h1 class="section-title">Hierarchical Risk Parity</h1>
+    <p class="section-desc">Hierarchical Risk Parity (HRP) is a modern portfolio theory...</p>
+    <img src="plots/hrp_weights.png" class="img-plot"><table border="1" class="dataframe table-data">
   <thead>
     <tr style="text-align: right;">
+      <th></th>
       <th>Ticker</th>
       <th>Weight</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <th>0</th>
       <td>AAPL</td>
       <td>0.051410</td>
     </tr>
     <tr>
+      <th>1</th>
       <td>AMD</td>
       <td>0.012973</td>
     </tr>
     <tr>
+      <th>2</th>
       <td>AMZN</td>
       <td>0.020182</td>
     </tr>
     <tr>
+      <th>3</th>
       <td>BABA</td>
       <td>0.040846</td>
     </tr>
     <tr>
+      <th>4</th>
       <td>BAC</td>
       <td>0.015568</td>
     </tr>
     <tr>
+      <th>5</th>
       <td>BBY</td>
       <td>0.037752</td>
     </tr>
     <tr>
+      <th>6</th>
       <td>FB</td>
       <td>0.040758</td>
     </tr>
     <tr>
+      <th>7</th>
       <td>GE</td>
       <td>0.060722</td>
     </tr>
     <tr>
+      <th>8</th>
       <td>GM</td>
       <td>0.043542</td>
     </tr>
     <tr>
+      <th>9</th>
       <td>GOOG</td>
       <td>0.031825</td>
     </tr>
     <tr>
+      <th>10</th>
       <td>JPM</td>
       <td>0.023255</td>
     </tr>
     <tr>
+      <th>11</th>
       <td>MA</td>
       <td>0.049569</td>
     </tr>
     <tr>
+      <th>12</th>
       <td>PFE</td>
       <td>0.107003</td>
     </tr>
     <tr>
+      <th>13</th>
       <td>RRC</td>
       <td>0.017325</td>
     </tr>
     <tr>
+      <th>14</th>
       <td>SBUX</td>
       <td>0.082697</td>
     </tr>
     <tr>
+      <th>15</th>
       <td>SHLD</td>
       <td>0.010999</td>
     </tr>
     <tr>
+      <th>16</th>
       <td>T</td>
       <td>0.155331</td>
     </tr>
     <tr>
+      <th>17</th>
       <td>UAA</td>
       <td>0.023537</td>
     </tr>
     <tr>
+      <th>18</th>
       <td>WMT</td>
       <td>0.101710</td>
     </tr>
     <tr>
+      <th>19</th>
       <td>XOM</td>
       <td>0.072995</td>
     </tr>
   </tbody>
-</table><h1>Black-Litterman</h1><p>The Black-Litterman model is a mathematical model for portfolio allocation developed by Fischer Black and Robert Litterman. This model allows investors to combine their unique views regarding the performance of various assets with the market equilibrium in a manner that results in intuitive, diversified portfolios. The pie chart presents the proportion of the total funds that should be invested in each stock according to the Black-Litterman model.</p><img src="plots/bl_weights.png" alt="Image" width="500" height="600"><table border="1" class="dataframe">
+</table>
+</div>
+
+<div class="section">
+    <h1 class="section-title">Black-Litterman</h1>
+    <p class="section-desc">The Black-Litterman model is a mathematical model for portfolio allocation...</p>
+    <img src="plots/bl_weights.png" class="img-plot"><table border="1" class="dataframe table-data">
   <thead>
     <tr style="text-align: right;">
+      <th></th>
       <th>Ticker</th>
       <th>Weight</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <th>0</th>
       <td>GOOG</td>
       <td>-1.628588e-16</td>
     </tr>
     <tr>
+      <th>1</th>
       <td>AAPL</td>
       <td>1.000000e+00</td>
     </tr>
     <tr>
+      <th>2</th>
       <td>FB</td>
       <td>2.191607e-17</td>
     </tr>
     <tr>
+      <th>3</th>
       <td>BABA</td>
       <td>-1.012406e-17</td>
     </tr>
     <tr>
+      <th>4</th>
       <td>AMZN</td>
       <td>-1.391638e-17</td>
     </tr>
     <tr>
+      <th>5</th>
       <td>GE</td>
       <td>1.144256e-16</td>
     </tr>
     <tr>
+      <th>6</th>
       <td>AMD</td>
       <td>4.264220e-17</td>
     </tr>
     <tr>
+      <th>7</th>
       <td>WMT</td>
       <td>7.799177e-17</td>
     </tr>
     <tr>
+      <th>8</th>
       <td>BAC</td>
       <td>4.332607e-17</td>
     </tr>
     <tr>
+      <th>9</th>
       <td>GM</td>
       <td>-1.473775e-17</td>
     </tr>
     <tr>
+      <th>10</th>
       <td>T</td>
       <td>-2.531353e-17</td>
     </tr>
     <tr>
+      <th>11</th>
       <td>UAA</td>
       <td>4.179604e-18</td>
     </tr>
     <tr>
+      <th>12</th>
       <td>SHLD</td>
       <td>-1.508797e-17</td>
     </tr>
     <tr>
+      <th>13</th>
       <td>XOM</td>
       <td>3.734143e-17</td>
     </tr>
     <tr>
+      <th>14</th>
       <td>RRC</td>
       <td>-1.500134e-17</td>
     </tr>
     <tr>
+      <th>15</th>
       <td>BBY</td>
       <td>2.690351e-17</td>
     </tr>
     <tr>
+      <th>16</th>
       <td>MA</td>
       <td>-6.492230e-18</td>
     </tr>
     <tr>
+      <th>17</th>
       <td>PFE</td>
       <td>-5.680259e-17</td>
     </tr>
     <tr>
+      <th>18</th>
       <td>JPM</td>
       <td>-6.887086e-17</td>
     </tr>
     <tr>
+      <th>19</th>
       <td>SBUX</td>
       <td>-5.235398e-17</td>
     </tr>
   </tbody>
-</table><h1>Critical Line Algorithm</h1><p>The Critical Line Algorithm (CLA) is a method used in portfolio optimization, specifically in finding the optimal portfolio that lies along the efficient frontier. CLA is particularly useful when dealing with a large number of assets and constraints. The pie chart shows the proportion of the total funds that should be invested in each stock according to the CLA model.</p><img src="plots/cla_weights.png" alt="Image" width="500" height="600"><table border="1" class="dataframe">
+</table>
+</div>
+
+<div class="section">
+    <h1 class="section-title">Critical Line Algorithm</h1>
+    <p class="section-desc">The Critical Line Algorithm (CLA) is a method used in portfolio optimization...</p>
+    <img src="plots/cla_weights.png" class="img-plot"><table border="1" class="dataframe table-data">
   <thead>
     <tr style="text-align: right;">
+      <th></th>
       <th>Ticker</th>
       <th>Weight</th>
     </tr>
   </thead>
   <tbody>
     <tr>
+      <th>0</th>
       <td>GOOG</td>
       <td>4.580219e-02</td>
     </tr>
     <tr>
+      <th>1</th>
       <td>AAPL</td>
       <td>6.743220e-02</td>
     </tr>
     <tr>
+      <th>2</th>
       <td>FB</td>
       <td>2.008032e-01</td>
     </tr>
     <tr>
+      <th>3</th>
       <td>BABA</td>
       <td>8.494261e-02</td>
     </tr>
     <tr>
+      <th>4</th>
       <td>AMZN</td>
       <td>3.525209e-02</td>
     </tr>
     <tr>
+      <th>5</th>
       <td>GE</td>
       <td>0.000000e+00</td>
     </tr>
     <tr>
+      <th>6</th>
       <td>AMD</td>
       <td>0.000000e+00</td>
     </tr>
     <tr>
+      <th>7</th>
       <td>WMT</td>
       <td>-2.932778e-17</td>
     </tr>
     <tr>
+      <th>8</th>
       <td>BAC</td>
       <td>0.000000e+00</td>
     </tr>
     <tr>
+      <th>9</th>
       <td>GM</td>
       <td>0.000000e+00</td>
     </tr>
     <tr>
+      <th>10</th>
       <td>T</td>
       <td>0.000000e+00</td>
     </tr>
     <tr>
+      <th>11</th>
       <td>UAA</td>
       <td>0.000000e+00</td>
     </tr>
     <tr>
+      <th>12</th>
       <td>SHLD</td>
       <td>0.000000e+00</td>
     </tr>
     <tr>
+      <th>13</th>
       <td>XOM</td>
       <td>0.000000e+00</td>
     </tr>
     <tr>
+      <th>14</th>
       <td>RRC</td>
       <td>0.000000e+00</td>
     </tr>
     <tr>
+      <th>15</th>
       <td>BBY</td>
       <td>1.586695e-02</td>
     </tr>
     <tr>
+      <th>16</th>
       <td>MA</td>
       <td>3.287015e-01</td>
     </tr>
     <tr>
+      <th>17</th>
       <td>PFE</td>
       <td>2.039379e-01</td>
     </tr>
     <tr>
+      <th>18</th>
       <td>JPM</td>
       <td>0.000000e+00</td>
     </tr>
     <tr>
+      <th>19</th>
       <td>SBUX</td>
       <td>1.726125e-02</td>
     </tr>
   </tbody>
 </table>
+</div>
+
+<div class="section">
+    <h1 class="section-title">Covariance Matrix</h1>
+    <p class="section-desc">The covariance matrix is a matrix that contains the variances and covariances...</p>
+    <img src="plots/covariance_matrix.png" class="img-plot">
+</div>
+
+<div class="section">
+    <h1 class="section-title">HRP Dendrogram</h1>
+    <p class="section-desc">The dendrogram is a tree diagram frequently used to illustrate the arrangement of the clusters...</p>
+    <img src="plots/hrp_dendrogram.png" class="img-plot">
+</div>
+
+<div class="section">
+    <h1 class="section-title">Model Weights Plots</h1>
+    <p class="section-desc">The plots below illustrate the weights assigned to each asset by the respective models.</p>
+
+    <h2 class="subsection-title">Mean Variance Optimization Weights Plot</h2>
+    <img src="plots/mvo_weights_plot.png" class="img-plot">
+
+    <h2 class="subsection-title">Hierarchical Risk Parity Weights Plot</h2>
+    <img src="plots/hrp_weights_plot.png" class="img-plot">
+
+    <h2 class="subsection-title">Black-Litterman Weights Plot</h2>
+    <img src="plots/bl_weights_plot.png" class="img-plot">
+
+    <h2 class="subsection-title">Critical Line Algorithm Weights Plot</h2>
+    <img src="plots/cla_weights_plot.png" class="img-plot">
+</div>
+
+</body>
+</html>
