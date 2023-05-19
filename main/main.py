@@ -1,49 +1,31 @@
-from pypfopt import risk_models
-from pypfopt import expected_returns
-from pypfopt import EfficientFrontier
-from pypfopt import HRPOpt
-from pypfopt import CLA
-from pypfopt import BlackLittermanModel
-from pypfopt import plotting
-import pandas as pd
-import matplotlib.pyplot as plt
-import os
+from util import *
+
 
 # Load the price data
-df = pd.read_csv("stock_prices.csv", parse_dates=True, index_col="date")
-
+df = load_data()
 # Calculate the expected returns
-mu = expected_returns.mean_historical_return(df)
+mu = get_expected_returns(df)
 
 # Calculate the covariance matrix
-S = risk_models.sample_cov(df)
+S = get_sample_cov(df)
 
-# Directory to save plots
-if not os.path.exists('plots'):
-    os.makedirs('plots')
+create_directory_if_not_exists('plots')
 
 # Use mean-variance optimization
 ef = EfficientFrontier(mu, S)
-weights = ef.max_sharpe() 
-weights_df = pd.DataFrame(list(weights.items()),columns = ['Ticker','Weight']) 
-weights_df.to_csv("mvo_weights.csv", index=False)
-weights_df.plot.pie(y='Weight', labels=weights_df['Ticker'], figsize=(10, 10), autopct='%1.1f%%')
-plt.title('Mean Variance Optimization Weights')
-plt.savefig('plots/mvo_weights.png')
-plt.close()
-print("Mean Variance Optimization Weights:", weights)
+weights = calculate_and_save_weights('Mean Variance Optimization', ef.max_sharpe, 'data/mvo_weights.csv', 'plots/mvo_weights.png')
 
 # Plot the efficient frontier
 ef_for_plot = EfficientFrontier(mu, S)
 fig, ax = plt.subplots()
 plotting.plot_efficient_frontier(ef_for_plot, ax=ax, show_assets=True)
-plt.savefig('efficient_frontier.png')
+plt.savefig('plots/efficient_frontier.png')
 
 # Create the Hierarchical Risk Parity model
 hrp = HRPOpt(df.pct_change().dropna())
 hrp_weights = hrp.optimize()
 hrp_weights_df = pd.DataFrame(list(hrp_weights.items()),columns = ['Ticker','Weight']) 
-hrp_weights_df.to_csv("hrp_weights.csv", index=False)
+hrp_weights_df.to_csv("data/hrp_weights.csv", index=False)
 hrp_weights_df.plot.pie(y='Weight', labels=hrp_weights_df['Ticker'], figsize=(10, 10), autopct='%1.1f%%')
 plt.title('Hierarchical Risk Parity Weights')
 plt.savefig('plots/hrp_weights.png')
@@ -57,7 +39,7 @@ print("Hierarchical Risk Parity Weights:", hrp_weights)
 bl = BlackLittermanModel(S, absolute_views= {"AAPL": 0.10})
 bl_weights = bl.bl_weights()
 bl_weights_df = pd.DataFrame(list(bl_weights.items()),columns = ['Ticker','Weight']) 
-bl_weights_df.to_csv("bl_weights.csv", index=False)
+bl_weights_df.to_csv("data/bl_weights.csv", index=False)
 
 # Fix negative weights for the pie chart
 bl_weights_df_fixed = bl_weights_df.copy()
@@ -78,7 +60,7 @@ print("Black-Litterman Weights:", bl_weights)
 cla = CLA(mu, S)
 cla_weights = cla.max_sharpe()
 cla_weights_df = pd.DataFrame(list(cla_weights.items()),columns = ['Ticker','Weight']) 
-cla_weights_df.to_csv("cla_weights.csv", index=False)
+cla_weights_df.to_csv("data/cla_weights.csv", index=False)
 
 # Fix negative weights for the pie chart
 cla_weights_df_fixed = cla_weights_df.copy()
@@ -96,13 +78,6 @@ print("Critical Line Algorithm Weights:", cla_weights)
 
 
 # Function to convert CSV to HTML table
-def img_to_html(img_path, class_name=''):
-    return f'<img src="{img_path}" class="{class_name}">'
-
-def csv_to_html(csv_path, class_name=''):
-    df = pd.read_csv(csv_path)
-    return df.to_html(classes=class_name)
-
 
     # Additional part to plot covariance matrix, dendrogram, and weights
 plotting.plot_covariance(S, show_tickers=True)
@@ -131,9 +106,6 @@ plotting.plot_weights(cla_weights)
 plt.savefig('plots/cla_weights_plot.png')
 plt.close()
 
-# HTML content
-
-# HTML content
 html_content = """
 <!DOCTYPE html>
 <html>
@@ -145,25 +117,25 @@ html_content = """
 <div class="section">
     <h1 class="section-title">Mean Variance Optimization</h1>
     <p class="section-desc">Mean Variance Optimization is an approach developed by Harry Markowitz...</p>
-    """ + img_to_html('plots/mvo_weights.png', 'img-plot') + csv_to_html('mvo_weights.csv', 'table-data') + """
+    """ + img_to_html('plots/mvo_weights.png', 'img-plot') + csv_to_html('data/mvo_weights.csv', 'table-data') + """
 </div>
 
 <div class="section">
     <h1 class="section-title">Hierarchical Risk Parity</h1>
     <p class="section-desc">Hierarchical Risk Parity (HRP) is a modern portfolio theory...</p>
-    """ + img_to_html('plots/hrp_weights.png', 'img-plot') + csv_to_html('hrp_weights.csv', 'table-data') + """
+    """ + img_to_html('plots/hrp_weights.png', 'img-plot') + csv_to_html('data/hrp_weights.csv', 'table-data') + """
 </div>
 
 <div class="section">
     <h1 class="section-title">Black-Litterman</h1>
     <p class="section-desc">The Black-Litterman model is a mathematical model for portfolio allocation...</p>
-    """ + img_to_html('plots/bl_weights.png', 'img-plot') + csv_to_html('bl_weights.csv', 'table-data') + """
+    """ + img_to_html('plots/bl_weights.png', 'img-plot') + csv_to_html('data/bl_weights.csv', 'table-data') + """
 </div>
 
 <div class="section">
     <h1 class="section-title">Critical Line Algorithm</h1>
     <p class="section-desc">The Critical Line Algorithm (CLA) is a method used in portfolio optimization...</p>
-    """ + img_to_html('plots/cla_weights.png', 'img-plot') + csv_to_html('cla_weights.csv', 'table-data') + """
+    """ + img_to_html('plots/cla_weights.png', 'img-plot') + csv_to_html('data/cla_weights.csv', 'table-data') + """
 </div>
 
 <div class="section">
@@ -200,10 +172,8 @@ html_content = """
 """
 
 # Write to HTML file
-with open('results.html', 'w') as f:
+with open('results/results.html', 'w') as f:
     f.write(html_content)
-
-
 
 
 
