@@ -1,6 +1,7 @@
 from util import *
 
 
+
 # Load the price data
 df = load_data()
 # Calculate the expected returns
